@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="muskokaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="camperProfile">
+    <Key>
+      <PropertyRef Name="camperID" />
+    </Key>
+    <Property Name="camperID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="familyName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="age" Type="int" Nullable="false" />
+    <Property Name="rate" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="address" Type="varchar" MaxLength="600" Nullable="false" />
+    <Property Name="contactName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="contactRelation" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="contactNumber" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="importantNotes" Type="varchar" MaxLength="8000" />
+    <Property Name="photo" Type="varbinary" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date" Type="varchar" MaxLength="20" />
+    <Property Name="amount" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="payment_type" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="camperID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="registrationDates">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date" Type="varchar" MaxLength="255" />
+    <Property Name="signInTime" Type="varchar" MaxLength="255" />
+    <Property Name="signOutTime" Type="varchar" MaxLength="255" />
+    <Property Name="signedInBy" Type="varchar" MaxLength="255" />
+    <Property Name="signedOutBy" Type="varchar" MaxLength="255" />
+    <Property Name="camperID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__payment__camperI__6FE99F9F">
+    <End Role="camperProfile" Type="Self.camperProfile" Multiplicity="1" />
+    <End Role="payment" Type="Self.payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="camperProfile">
+        <PropertyRef Name="camperID" />
+      </Principal>
+      <Dependent Role="payment">
+        <PropertyRef Name="camperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__registrat__campe__02FC7413">
+    <End Role="camperProfile" Type="Self.camperProfile" Multiplicity="1" />
+    <End Role="registrationDates" Type="Self.registrationDates" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="camperProfile">
+        <PropertyRef Name="camperID" />
+      </Principal>
+      <Dependent Role="registrationDates">
+        <PropertyRef Name="camperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="muskokaModelStoreContainer">
+    <EntitySet Name="camperProfile" EntityType="Self.camperProfile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="payment" EntityType="Self.payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="registrationDates" EntityType="Self.registrationDates" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__payment__camperI__6FE99F9F" Association="Self.FK__payment__camperI__6FE99F9F">
+      <End Role="camperProfile" EntitySet="camperProfile" />
+      <End Role="payment" EntitySet="payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__registrat__campe__02FC7413" Association="Self.FK__registrat__campe__02FC7413">
+      <End Role="camperProfile" EntitySet="camperProfile" />
+      <End Role="registrationDates" EntitySet="registrationDates" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

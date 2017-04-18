@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="muskokaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="camperProfile">
+    <Key>
+      <PropertyRef Name="camperID" />
+    </Key>
+    <Property Name="camperID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="familyName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="age" Type="Int32" Nullable="false" />
+    <Property Name="rate" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="600" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contactName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contactRelation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="contactNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="importantNotes" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+    <Property Name="photo" Type="Binary" MaxLength="1" FixedLength="false" />
+    <NavigationProperty Name="registrationDates" Relationship="Self.FK__registrat__campe__6383C8BA" FromRole="camperProfile" ToRole="registrationDates" />
+    <NavigationProperty Name="payments" Relationship="muskokaModel.FK__payment__camperI__6477ECF3" FromRole="camperProfile" ToRole="payment" />
+  </EntityType>
+  <EntityType Name="payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="amount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="payment_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="camperID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="camperProfile" Relationship="muskokaModel.FK__payment__camperI__6477ECF3" FromRole="payment" ToRole="camperProfile" />
+  </EntityType>
+  <EntityType Name="registrationDate">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="signInTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="signOutTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="signedInBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="signedOutBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="camperID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="camperProfile" Relationship="Self.FK__registrat__campe__6383C8BA" FromRole="registrationDates" ToRole="camperProfile" />
+    <Property Name="date" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK__registrat__campe__6383C8BA">
+    <End Role="camperProfile" Type="Self.camperProfile" Multiplicity="1" />
+    <End Role="registrationDates" Type="Self.registrationDate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="camperProfile">
+        <PropertyRef Name="camperID" />
+      </Principal>
+      <Dependent Role="registrationDates">
+        <PropertyRef Name="camperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="muskokaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="camperProfiles" EntityType="Self.camperProfile" />
+    <EntitySet Name="payments" EntityType="Self.payment" />
+    <EntitySet Name="registrationDates" EntityType="Self.registrationDate" />
+    <AssociationSet Name="FK__registrat__campe__6383C8BA" Association="Self.FK__registrat__campe__6383C8BA">
+      <End Role="camperProfile" EntitySet="camperProfiles" />
+      <End Role="registrationDates" EntitySet="registrationDates" />
+    </AssociationSet>
+    <AssociationSet Name="FK__payment__camperI__6477ECF3" Association="muskokaModel.FK__payment__camperI__6477ECF3">
+      <End Role="camperProfile" EntitySet="camperProfiles" />
+      <End Role="payment" EntitySet="payments" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK__payment__camperI__6477ECF3">
+    <End Type="muskokaModel.camperProfile" Role="camperProfile" Multiplicity="1" />
+    <End Type="muskokaModel.payment" Role="payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="camperProfile">
+        <PropertyRef Name="camperID" />
+      </Principal>
+      <Dependent Role="payment">
+        <PropertyRef Name="camperID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

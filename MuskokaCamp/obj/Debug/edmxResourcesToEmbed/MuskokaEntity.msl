@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="muskokaModelStoreContainer" CdmEntityContainer="muskokaEntities">
+    <EntitySetMapping Name="camperProfiles">
+      <EntityTypeMapping TypeName="muskokaModel.camperProfile">
+        <MappingFragment StoreEntitySet="camperProfile">
+          <ScalarProperty Name="camperID" ColumnName="camperID" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="familyName" ColumnName="familyName" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="rate" ColumnName="rate" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="contactName" ColumnName="contactName" />
+          <ScalarProperty Name="contactRelation" ColumnName="contactRelation" />
+          <ScalarProperty Name="contactNumber" ColumnName="contactNumber" />
+          <ScalarProperty Name="importantNotes" ColumnName="importantNotes" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payments">
+      <EntityTypeMapping TypeName="muskokaModel.payment">
+        <MappingFragment StoreEntitySet="payment">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="payment_type" ColumnName="payment_type" />
+          <ScalarProperty Name="camperID" ColumnName="camperID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="registrationDates">
+      <EntityTypeMapping TypeName="muskokaModel.registrationDate">
+        <MappingFragment StoreEntitySet="registrationDates">
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="signInTime" ColumnName="signInTime" />
+          <ScalarProperty Name="signOutTime" ColumnName="signOutTime" />
+          <ScalarProperty Name="signedInBy" ColumnName="signedInBy" />
+          <ScalarProperty Name="signedOutBy" ColumnName="signedOutBy" />
+          <ScalarProperty Name="camperID" ColumnName="camperID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
